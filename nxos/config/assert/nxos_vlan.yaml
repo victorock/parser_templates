@@ -1,0 +1,7 @@
+- name: "validate nxos_vlan"
+  assert:
+    that:
+      - network_config.nxos_vlan[0].vlan_id == '2'
+      - network_config.nxos_vlan[0].name == 'vlan2'
+      - network_config.nxos_vlan[0].mapped_vni == '0'
+      - network_config.nxos_vlan[0].state == 'active'
