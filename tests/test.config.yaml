@@ -1,0 +1,53 @@
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  roles:
+    - role: ansible-network.network-engine
+
+  tasks:
+    - name: "find platforms"
+      find:
+        paths: "parser_templates/"
+        recurse: no
+        file_type: directory
+        excludes: 'meta,tests'
+      register: platforms
+
+    - name: "find config asserts"
+      find:
+        paths: "{{ item }}/config/assert/"
+        recurse: yes
+        file_type: file
+        patterns: "*"
+      loop: "{{ platforms.files | map(attribute='path') | list }}"
+      register: config_asserts
+
+    - name: "find config modules"
+      find:
+        paths: "{{ item }}/config/module/"
+        recurse: yes
+        file_type: file
+        patterns: "*"
+      loop: "{{ platforms.files | map(attribute='path') | list }}"
+      register: config_modules
+
+    - name: "find config outputs"
+      find:
+        paths: "{{ item }}/config/output/"
+        recurse: yes
+        file_type: file
+        patterns: "*"
+      loop: "{{ platforms.files | map(attribute='path') | list }}"
+      register: config_outputs
+
+    - name: "test config parsers"
+      command_parser:
+        file: "{{ item.0 }}"
+        content: "{{ lookup('file', item.1 ) }}"
+      with_together:
+        - "{{ config_modules | json_query('results[*].files[*].path') | list }}"
+        - "{{ config_outputs | json_query('results[*].files[*].path') | list }}"
+
+    - name: "assert config parsers"
+      include_tasks: "{{ item }}"
+      with_items: "{{ config_asserts | json_query('results[*].files[*].path') | list }}"

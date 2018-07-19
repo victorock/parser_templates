@@ -1,0 +1,2 @@
+- import_playbook: "test.config.yaml"
+- import_playbook: "test.cli.yaml"
