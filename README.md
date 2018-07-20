@@ -37,114 +37,113 @@ cli (`see in nxos/cli/output/`): show_vlan_brief.yaml
 {
   "ansible_facts": {
     "network_facts": {
-      "nxos_vlan": {
-          "1": {
-            "name": "default",
-            "ports": [
-                "Eth1/3",
-                "Eth1/4",
-                "Eth1/6",
-                "Eth1/7",
-                "Eth1/8",
-                "Eth1/9",
-                "Eth1/10",
-                "Eth1/11",
-                "Eth1/12",
-                "Eth1/13",
-                "Eth1/14",
-                "Eth1/15",
-                "Eth1/16",
-                "Eth1/17",
-                "Eth1/18",
-                "Eth1/19",
-                "Eth1/20",
-                "Eth1/21",
-                "Eth1/22",
-                "Eth1/23",
-                "Eth1/24",
-                "Eth1/25",
-                "Eth1/26",
-                "Eth1/27",
-                "Eth1/28",
-                "Eth1/29",
-                "Eth1/30",
-                "Eth1/31",
-                "Eth1/32",
-                "Eth1/33",
-                "Eth1/34",
-                "Eth1/35",
-                "Eth1/36",
-                "Eth1/37",
-                "Eth1/38",
-                "Eth1/39",
-                "Eth1/40",
-                "Eth1/41",
-                "Eth1/42",
-                "Eth1/43",
-                "Eth1/44",
-                "Eth1/45",
-                "Eth1/46",
-                "Eth1/47",
-                "Eth1/48",
-                "Eth1/49",
-                "Eth1/50",
-                "Eth1/51",
-                "Eth1/52",
-                "Eth1/53",
-                "Eth1/54",
-                "Eth1/55",
-                "Eth1/56",
-                "Eth1/57",
-                "Eth1/58",
-                "Eth1/59",
-                "Eth1/60",
-                "Eth1/61",
-                "Eth1/62",
-                "Eth1/63",
-                "Eth1/64"
-            ],
-            "status": "active"
-        },
-        "2": {
-            "name": "vlan2",
-            "ports": null,
-            "status": "active"
-        },
-        "3": {
-            "name": "vlan3",
-            "ports": null,
-            "status": "act/lshut"
+      "nxos": {
+        "vlan": {
+            "1": {
+              "name": "default",
+              "ports": [
+                  "Ethernet1/3",
+                  "Ethernet1/4",
+                  "Ethernet1/6",
+                  "Ethernet1/7",
+                  "Ethernet1/8",
+                  "Ethernet1/9",
+                  "Ethernet1/10",
+                  "Ethernet1/11",
+                  "Ethernet1/12",
+                  "Ethernet1/13",
+                  "Ethernet1/14",
+                  "Ethernet1/15",
+                  "Ethernet1/16",
+                  "Ethernet1/17",
+                  "Ethernet1/18",
+                  "Ethernet1/19",
+                  "Ethernet1/20",
+                  "Ethernet1/21",
+                  "Ethernet1/22",
+                  "Ethernet1/23",
+                  "Ethernet1/24",
+                  "Ethernet1/25",
+                  "Ethernet1/26",
+                  "Ethernet1/27",
+                  "Ethernet1/28",
+                  "Ethernet1/29",
+                  "Ethernet1/30",
+                  "Ethernet1/31",
+                  "Ethernet1/32",
+                  "Ethernet1/33",
+                  "Ethernet1/34",
+                  "Ethernet1/35",
+                  "Ethernet1/36",
+                  "Ethernet1/37",
+                  "Ethernet1/38",
+                  "Ethernet1/39",
+                  "Ethernet1/40",
+                  "Ethernet1/41",
+                  "Ethernet1/42",
+                  "Ethernet1/43",
+                  "Ethernet1/44",
+                  "Ethernet1/45",
+                  "Ethernet1/46",
+                  "Ethernet1/47",
+                  "Ethernet1/48",
+                  "Ethernet1/49",
+                  "Ethernet1/50",
+                  "Ethernet1/51",
+                  "Ethernet1/52",
+                  "Ethernet1/53",
+                  "Ethernet1/54",
+                  "Ethernet1/55",
+                  "Ethernet1/56",
+                  "Ethernet1/57",
+                  "Ethernet1/58",
+                  "Ethernet1/59",
+                  "Ethernet1/60",
+                  "Ethernet1/61",
+                  "Ethernet1/62",
+                  "Ethernet1/63",
+                  "Ethernet1/64"
+              ],
+              "status": "active"
+          },
+          "2": {
+              "name": "vlan2",
+              "ports": null,
+              "status": "active"
+          },
+          "3": {
+              "name": "vlan3",
+              "ports": null,
+              "status": "act/lshut"
+          }
         }
       }
     }
   }
 }
+
 ```
 
 CONTRIBUTING
 =========
 
-Folder structure:
+Folder structure is a 1:1 mapping between: parser:assert:input:output as per examples below:
+
 ```
-<platform>/
-├── cli
-│   ├── assert <= Asserts to validate the parsed data
-│   │   └── <show_command_with_underscores>.yaml
-│   ├── fact <= Parser rules for each command to parse
-│   │   └── <show_command_with_underscores>.yaml
-│   ├── input <= Input data to parse
-│   |    └── <show_command_with_underscores>.txt
-│   └── output <= Output containing the parsed data
-│       └── <show_command_with_underscores>.json
-└── config
-    ├── assert <= Asserts to validate the parsed data
-    │   └── <ansible_module_or_role_name>.yaml
-    ├── module <= Parser rules mapping parsed data to ansible modules
-    │   └── <ansible_module_or_role_name>.yaml
-    └── input <= Input data to parse
-    │   └── <ansible_module_or_role_name>.txt
-    └── output <= Output containing the parsed data
-        └── <show_command_with_underscores>.json
+<platform>/ <= Parser rules mapping parsed data to ansible modules.
+├── show_running-config_vlan.yaml
+└── show_vlan_brief.yaml
+
+tests/<platform>/ <= Tests for every Parser rules.
+├── assert <= Asserts to validate the parsed data
+│   ├── show_running-config_vlan.yaml
+│   └── show_vlan_brief.yaml
+├── input <= Input data to parse
+│   ├── show_running-config.txt
+│   └── show_vlan_brief.txt
+└── output <= Output containing the parsed data
+    ├── show_running-config_vlan.json
+    └── show_vlan_brief.json
 ```
 
 

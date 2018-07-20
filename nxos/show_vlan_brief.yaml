@@ -1,35 +1,37 @@
 ---
-- name: match fact sections
+- name: match cli sections
   pattern_match:
     regex: "^\\d+"
     match_all: yes
     match_greedy: yes
 #    match_until: "^$"
-  register: fact_section
+  register: cli_section
 
-- name: match fact values
+- name: match cli values
   pattern_group:
     - name: match row
       pattern_match:
         regex: "^(?P<id>\\d+)\\s+(?P<name>\\w+)\\s+(?P<status>.*?)\\s+(?P<ports>[Eth\\d+\/\\d+|,|\\s+]*)$"
         content: "{{ item }}"
       register: fact
-  loop: "{{ fact_section }}"
-  register: fact_values
+  loop: "{{ cli_section }}"
+  register: cli_values
 
-- name: template to nxos_vlan
+- name: template to platform vlan
   export: yes
   export_as: dict
-  extend: network_facts
-  loop: "{{ fact_values }}"
-  register: nxos_vlan
+  extend: network_facts.nxos
+  loop: "{{ cli_values }}"
+  register: vlan
   json_template:
     template:
       - key: "{{ item.fact.id }}"
         object:
-          - key: name
+          - key: vlan_id
+            value: "{{ item.fact.id }}"
+          - key: vlan_name
             value: "{{ item.fact.name }}"
           - key: status
             value: "{{ item.fact.status }}"
           - key: ports
-            value: "{{ item.fact.ports.replace('\n', ',').replace(' ', '').split(',')[:-1] }}"
+            value: "{{ item.fact.ports.replace('\n', ',').replace(' ', '').replace('Eth', 'Ethernet').split(',')[:-1] }}"

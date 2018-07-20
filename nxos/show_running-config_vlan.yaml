@@ -52,9 +52,9 @@
         value: "{{ item.id.matches.0 }}"
       - key: mode
         value: "{{ item.mode.matches.0 | default('ce') }}"
-      - key: vlan_state
-        value: "{{ item.state.matches.0 }}"
-      - key: name
+      - key: state
+        value: "{{ (item.state.matches.0 == 'active') | ternary('present', 'absent') }}"
+      - key: vlan_name
         value: "{{ item.name.matches.0 }}"
       - key: mapped_vni
         value: "{{ item.vn_segment.matches.0 }}"

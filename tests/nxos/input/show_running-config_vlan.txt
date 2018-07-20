@@ -1,5 +1,6 @@
-!Command: show running-config all
-!Time: Thu Jul 19 16:44:30 2018
+
+!Command: show running-config
+!Time: Fri Jul 20 03:52:05 2018
 
 version 7.0(3)I7(1)
 power redundancy-mode ps-redundant

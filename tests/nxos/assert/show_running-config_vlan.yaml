@@ -1,0 +1,12 @@
+- name: "parse show_running-config_vlan"
+  command_parser:
+    file: "../nxos/show_running-config_vlan.yaml"
+    content: "{{ lookup('file', 'nxos/input/show_running-config_vlan.txt') }}"
+
+- name: "assert show_running-config_vlan"
+  assert:
+    that:
+      - network_config.nxos_vlan[0].vlan_id == 2
+      - network_config.nxos_vlan[0].vlan_name == 'vlan2'
+      - network_config.nxos_vlan[0].mapped_vni == 0
+      - network_config.nxos_vlan[0].state == 'present'

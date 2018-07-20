@@ -1,0 +1,11 @@
+- name: "parse show_vlan_brief"
+  command_parser:
+    file: "../nxos/show_vlan_brief.yaml"
+    content: "{{ lookup('file', 'nxos/input/show_vlan_brief.txt') }}"
+
+- name: "assert show_vlan_brief"
+  assert:
+    that:
+      - network_facts.nxos.vlan.1.vlan_name == 'default'
+      - network_facts.nxos.vlan.1.status == 'active'
+      - network_facts.nxos.vlan.1.ports.0 == 'Ethernet1/3'
