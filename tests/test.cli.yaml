@@ -31,14 +31,14 @@
       loop: "{{ platforms.files | map(attribute='path') | list }}"
       register: cli_facts
 
-    - name: "find cli outputs"
+    - name: "find cli inputs"
       find:
-        paths: "{{ item }}/cli/output/"
+        paths: "{{ item }}/cli/input/"
         recurse: yes
         file_type: file
         patterns: "*"
       loop: "{{ platforms.files | map(attribute='path') | list }}"
-      register: cli_outputs
+      register: cli_inputs
 
     - name: "test cli parsers"
       command_parser:
@@ -46,7 +46,7 @@
         content: "{{ lookup('file', item.1 ) }}"
       with_together:
         - "{{ cli_facts | json_query('results[*].files[*].path') | list }}"
-        - "{{ cli_outputs | json_query('results[*].files[*].path') | list }}"
+        - "{{ cli_inputs | json_query('results[*].files[*].path') | list }}"
 
     - name: "assert cli parsers"
       include_tasks: "{{ item }}"

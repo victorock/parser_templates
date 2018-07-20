@@ -31,14 +31,14 @@
       loop: "{{ platforms.files | map(attribute='path') | list }}"
       register: config_modules
 
-    - name: "find config outputs"
+    - name: "find config inputs"
       find:
-        paths: "{{ item }}/config/output/"
+        paths: "{{ item }}/config/input/"
         recurse: yes
         file_type: file
         patterns: "*"
       loop: "{{ platforms.files | map(attribute='path') | list }}"
-      register: config_outputs
+      register: config_inputs
 
     - name: "test config parsers"
       command_parser:
@@ -46,7 +46,7 @@
         content: "{{ lookup('file', item.1 ) }}"
       with_together:
         - "{{ config_modules | json_query('results[*].files[*].path') | list }}"
-        - "{{ config_outputs | json_query('results[*].files[*].path') | list }}"
+        - "{{ config_inputs | json_query('results[*].files[*].path') | list }}"
 
     - name: "assert config parsers"
       include_tasks: "{{ item }}"
