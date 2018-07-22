@@ -1,0 +1,18 @@
+{
+    "network_facts.nxos.system.uptime": {
+        "kernel": {
+            "days": 1,
+            "hours": 14,
+            "minutes": 43,
+            "seconds": 15,
+            "value": "1 days, 14 hours, 43 minutes, 15 seconds"
+        },
+        "system": {
+            "days": 1,
+            "hours": 14,
+            "minutes": 41,
+            "seconds": 12,
+            "value": "1 days, 14 hours, 41 minutes, 12 seconds"
+        }
+    }
+}

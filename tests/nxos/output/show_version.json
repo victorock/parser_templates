@@ -1,0 +1,31 @@
+{
+    "network_facts.nxos.version": {
+        "hardware": {
+            "board_id": "9NJBPJ0ZO2L",
+            "bootflash_size": {
+                "unit": "kB",
+                "value": 3509454
+            },
+            "chassis_id": "Nexus9000 9000v",
+            "cpu": "Intel(R) Core(TM) i7-4870HQ CPU @ 2.50GHz",
+            "memory_size": {
+                "unit": "kB",
+                "value": 8165096
+            }
+        },
+        "header": "Cisco Nexus Operating System (NX-OS) Software\nTAC support: http://www.cisco.com/tac\nDocuments: http://www.cisco.com/en/US/products/ps9372/tsd_products_support_series_home.html\nCopyright (c) 2002-2017, Cisco Systems, Inc. All rights reserved.\nThe copyrights to certain works contained herein are owned by\nother third parties and are used and distributed under license.\nSome parts of this software are covered under the GNU Public\nLicense. A copy of the license is available at\nhttp://www.gnu.org/licenses/gpl.html.\n",
+        "software": {
+            "bios": {
+                "version": null
+            },
+            "kickstart": {
+                "file": "bootflash:///nxos.7.0.3.I7.1.bin",
+                "version": "7.0(3)I7(1)"
+            },
+            "system": {
+                "file": "bootflash:///nxos.7.0.3.I7.1.bin",
+                "version": "7.0(3)I7(1)"
+            }
+        }
+    }
+}

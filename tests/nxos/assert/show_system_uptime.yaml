@@ -1,0 +1,23 @@
+- name: "parse show_system_uptime"
+  vars:
+    ansible_network_os: nxos
+  command_parser:
+    file: "../nxos/show_system_uptime.yaml"
+    content: "{{ lookup('file', 'nxos/input/show_system_uptime.txt') }}"
+
+- name: "print network_facts.nxos.system.uptime"
+  debug:
+    var: network_facts.nxos.system.uptime
+    verbosity: 1
+
+- name: "assert show_system_uptime"
+  assert:
+    that:
+      - network_facts.nxos.system.uptime.kernel.days == 1
+      - network_facts.nxos.system.uptime.kernel.hours == 14
+      - network_facts.nxos.system.uptime.kernel.minutes == 43
+      - network_facts.nxos.system.uptime.kernel.seconds == 15
+      - network_facts.nxos.system.uptime.system.days == 1
+      - network_facts.nxos.system.uptime.system.hours == 14
+      - network_facts.nxos.system.uptime.system.minutes == 41
+      - network_facts.nxos.system.uptime.system.seconds == 12

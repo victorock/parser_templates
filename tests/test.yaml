@@ -25,3 +25,13 @@
     - name: "exec asserts"
       include_tasks: "{{ item }}"
       with_items: "{{ test_asserts | json_query('results[*].files[*].path') | list }}"
+
+    - name: "print network_facts"
+      debug:
+        var: network_facts
+        verbosity: 1
+
+    - name: "print network_config"
+      debug:
+        var: network_config
+        verbosity: 1

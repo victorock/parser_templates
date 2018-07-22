@@ -1,22 +1,20 @@
 {
-  "ansible_facts": {
-    "network_config": {
-      "nxos_vlan": [
-        {
-            "mapped_vni": 0,
-            "mode": "ce",
-            "name": "vlan2",
-            "vlan_id": 2,
-            "vlan_state": "active"
-        },
-        {
-            "mapped_vni": 0,
-            "mode": "ce",
-            "name": "vlan3",
-            "vlan_id": 3,
-            "vlan_state": "active"
-        }
-      ]
+    "network_config.nxos_vlan": {
+        "aggregate": [
+            {
+                "mapped_vni": null,
+                "mode": null,
+                "vlan_id": 2,
+                "vlan_name": "vlan2",
+                "vlan_state": null
+            },
+            {
+                "mapped_vni": null,
+                "mode": null,
+                "vlan_id": 3,
+                "vlan_name": "vlan3",
+                "vlan_state": null
+            }
+        ]
     }
-  }
 }

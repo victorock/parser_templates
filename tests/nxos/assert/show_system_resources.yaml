@@ -1,0 +1,32 @@
+- name: "parse show_system_resources"
+  vars:
+    ansible_network_os: nxos
+  command_parser:
+    file: "../nxos/show_system_resources.yaml"
+    content: "{{ lookup('file', 'nxos/input/show_system_resources.txt') }}"
+
+- name: "print network_facts.nxos.system.resources"
+  debug:
+    var: network_facts.nxos.system.resources
+    verbosity: 1
+
+- name: "assert show_system_resources"
+  assert:
+    that:
+      - network_facts.nxos.system.resources.cpu.idle.value == '96.35'
+      - network_facts.nxos.system.resources.cpu.idle.unit == '%'
+      - network_facts.nxos.system.resources.cpu.kernel.value == '2.60'
+      - network_facts.nxos.system.resources.cpu.kernel.unit == '%'
+      - network_facts.nxos.system.resources.cpu.user.value == '1.04'
+      - network_facts.nxos.system.resources.cpu.user.unit == '%'
+      - network_facts.nxos.system.resources.load['1min'] == '0.79'
+      - network_facts.nxos.system.resources.load['5min'] == '0.62'
+      - network_facts.nxos.system.resources.load['15min'] == '0.77'
+      - network_facts.nxos.system.resources.memory.free.value == 4567448
+      - network_facts.nxos.system.resources.memory.free.unit == 'K'
+      - network_facts.nxos.system.resources.memory.total.value == 8165096
+      - network_facts.nxos.system.resources.memory.total.unit == 'K'
+      - network_facts.nxos.system.resources.memory.used.value == 3597648
+      - network_facts.nxos.system.resources.memory.used.unit == 'K'
+      - network_facts.nxos.system.resources.processes.running == 2
+      - network_facts.nxos.system.resources.processes.total == 533

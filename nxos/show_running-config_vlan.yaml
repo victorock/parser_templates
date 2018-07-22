@@ -1,4 +1,10 @@
 ---
+- name: parser meta data
+  parser_metadata:
+    version: 1.0
+    command: show running-config vlan
+    network_os: nxos
+
 - name: match config sections
   pattern_match:
     regex: "^vlan [1-4096]$"
@@ -43,17 +49,17 @@
 - name: template to nxos_vlan
   export: yes
   export_as: list
-  extend: network_config
+  extend: network_config.nxos_vlan
   loop: "{{ config_values }}"
-  register: nxos_vlan
+  register: aggregate
   json_template:
     template:
       - key: vlan_id
         value: "{{ item.id.matches.0 }}"
       - key: mode
-        value: "{{ item.mode.matches.0 | default('ce') }}"
-      - key: state
-        value: "{{ (item.state.matches.0 == 'active') | ternary('present', 'absent') }}"
+        value: "{{ item.mode.matches.0 }}"
+      - key: vlan_state
+        valye: "{{ item.state.matches.0 }}"
       - key: vlan_name
         value: "{{ item.name.matches.0 }}"
       - key: mapped_vni

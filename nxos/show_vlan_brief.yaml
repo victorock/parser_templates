@@ -1,4 +1,10 @@
 ---
+- name: parser meta data
+  parser_metadata:
+    version: 1.0
+    command: show vlan brief
+    network_os: nxos
+
 - name: match cli sections
   pattern_match:
     regex: "^\\d+"
@@ -19,19 +25,17 @@
 
 - name: template to platform vlan
   export: yes
-  export_as: dict
+  export_as: list
   extend: network_facts.nxos
   loop: "{{ cli_values }}"
-  register: vlan
+  register: vlans
   json_template:
     template:
-      - key: "{{ item.fact.id }}"
-        object:
-          - key: vlan_id
-            value: "{{ item.fact.id }}"
-          - key: vlan_name
-            value: "{{ item.fact.name }}"
-          - key: status
-            value: "{{ item.fact.status }}"
-          - key: ports
-            value: "{{ item.fact.ports.replace('\n', ',').replace(' ', '').replace('Eth', 'Ethernet').split(',')[:-1] }}"
+      - key: id
+        value: "{{ item.fact.id }}"
+      - key: name
+        value: "{{ item.fact.name }}"
+      - key: status
+        value: "{{ item.fact.status }}"
+      - key: ports
+        value: "{{ item.fact.ports.replace('\n', ',').replace(' ', '').replace('Eth', 'Ethernet').split(',')[:-1] }}"
