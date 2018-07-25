@@ -1,3 +1,9 @@
+|Travis Build|
+
+*****************
+Parser Templates
+*****************
+
 Repository of Ansible Network Engine parsers.
 Two type of parsers exists:
 - Config: Parse from show <configuration> to data easily consumable by Ansible modules and roles, under network_config.
@@ -189,3 +195,7 @@ Author
 ------
 
 Victor da Costa (@victorock)
+
+
+.. |Travis Build| image: https://travis-ci.org/victorock/parser_templates.svg?branch=master
+   :target: https://travis-ci.org/victorock/parser_templates/
