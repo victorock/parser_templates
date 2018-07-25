@@ -2,8 +2,8 @@
   vars:
     ansible_network_os: nxos
   command_parser:
-    file: "../nxos/show_version.yaml"
-    content: "{{ lookup('file', 'nxos/input/show_version.txt') }}"
+    file: "{{playbook_dir}}/../nxos/show_version.yaml"
+    content: "{{ lookup('file', playbook_dir + '/nxos/input/show_version.txt') }}"
 
 - name: "print network_facts.nxos.version"
   debug:

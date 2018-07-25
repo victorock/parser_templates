@@ -2,8 +2,8 @@
   vars:
     ansible_network_os: nxos
   command_parser:
-    file: "../nxos/show_system_resources.yaml"
-    content: "{{ lookup('file', 'nxos/input/show_system_resources.txt') }}"
+    file: "{{playbook_dir}}/../nxos/show_system_resources.yaml"
+    content: "{{ lookup('file', playbook_dir + '/nxos/input/show_system_resources.txt') }}"
 
 - name: "print network_facts.nxos.system.resources"
   debug:

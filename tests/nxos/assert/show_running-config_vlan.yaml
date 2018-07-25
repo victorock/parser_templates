@@ -2,8 +2,8 @@
   vars:
     ansible_network_os: nxos
   command_parser:
-    file: "../nxos/show_running-config_vlan.yaml"
-    content: "{{ lookup('file', 'nxos/input/show_running-config_vlan.txt') }}"
+    file: "{{playbook_dir}}/../nxos/show_running-config_vlan.yaml"
+    content: "{{ lookup('file', playbook_dir + '/nxos/input/show_running-config_vlan.txt') }}"
 
 - name: "print network_config.nxos_vlan"
   debug:
