@@ -1,0 +1,20 @@
+{
+    "network_config.nxos_vlan": {
+        "aggregate": [
+            {
+                "mapped_vni": null,
+                "mode": null,
+                "vlan_id": 2,
+                "vlan_name": "vlan2",
+                "vlan_state": null
+            },
+            {
+                "mapped_vni": null,
+                "mode": null,
+                "vlan_id": 3,
+                "vlan_name": "vlan3",
+                "vlan_state": null
+            }
+        ]
+    }
+}

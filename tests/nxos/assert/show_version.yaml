@@ -1,0 +1,21 @@
+- name: "parse show_version"
+  vars:
+    ansible_network_os: nxos
+  command_parser:
+    file: "../nxos/show_version.yaml"
+    content: "{{ lookup('file', 'nxos/input/show_version.txt') }}"
+
+- name: "print network_facts.nxos.version"
+  debug:
+    var: network_facts.nxos.version
+    verbosity: 1
+
+- name: "assert show_version"
+  assert:
+    that:
+      - network_facts.nxos.version.hardware.chassis == 'Nexus9000 9000v'
+      - network_facts.nxos.version.hardware.serial_number == '9NJBPJ0ZO2L'
+      - network_facts.nxos.version.hardware.bootflash_size.value == 3509454
+      - network_facts.nxos.version.hardware.bootflash_size.unit == 'kB'
+      - network_facts.nxos.version.hardware.memory_size.value == 8165096
+      - network_facts.nxos.version.hardware.memory_size.unit == 'kB'

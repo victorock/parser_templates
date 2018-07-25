@@ -1,6 +1,0 @@
-- name: "validate show_vlan_brief"
-  assert:
-    that:
-      - network_facts.nxos_vlan.1.name == 'default'
-      - network_facts.nxos_vlan.1.status == 'active'
-      - network_facts.nxos_vlan.1.ports.0 == 'Eth1/3'

@@ -1,0 +1,45 @@
+{
+    "network_facts.nxos.system.resources": {
+        "cpu": {
+            "idle": {
+                "unit": "%",
+                "value": "96.35"
+            },
+            "kernel": {
+                "unit": "%",
+                "value": "2.60"
+            },
+            "user": {
+                "unit": "%",
+                "value": "1.04"
+            },
+            "value": "1.04% user,   2.60% kernel,   96.35% idle"
+        },
+        "load": {
+            "15min": "0.77",
+            "1min": "0.79",
+            "5min": "0.62",
+            "value": "1 minute: 0.79   5 minutes: 0.62   15 minutes: 0.77"
+        },
+        "memory": {
+            "free": {
+                "unit": "K",
+                "value": 4567448
+            },
+            "total": {
+                "unit": "K",
+                "value": 8165096
+            },
+            "used": {
+                "unit": "K",
+                "value": 3597648
+            },
+            "value": "8165096K total,   3597648K used,   4567448K free"
+        },
+        "processes": {
+            "running": 2,
+            "total": 533,
+            "value": "533 total, 2 running"
+        }
+    }
+}

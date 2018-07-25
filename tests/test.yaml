@@ -1,2 +1,37 @@
-- import_playbook: "test.config.yaml"
-- import_playbook: "test.cli.yaml"
+- hosts: localhost
+  connection: local
+  gather_facts: no
+  roles:
+    - role: ansible-network.network-engine
+
+  tasks:
+    - name: "find platforms"
+      find:
+        paths: "../"
+        recurse: no
+        file_type: directory
+        excludes: 'meta,tests'
+      register: platforms
+
+    - name: "find asserts"
+      find:
+        paths: "{{ item.split('/')[-1] }}/assert/"
+        recurse: yes
+        file_type: file
+        patterns: "*"
+      loop: "{{ platforms.files | map(attribute='path') | list }}"
+      register: test_asserts
+
+    - name: "exec asserts"
+      include_tasks: "{{ item }}"
+      with_items: "{{ test_asserts | json_query('results[*].files[*].path') | list }}"
+
+    - name: "print network_facts"
+      debug:
+        var: network_facts
+        verbosity: 1
+
+    - name: "print network_config"
+      debug:
+        var: network_config
+        verbosity: 1

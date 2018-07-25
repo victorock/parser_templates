@@ -1,0 +1,19 @@
+- name: "parse show_vlan_brief"
+  vars:
+    ansible_network_os: nxos
+  command_parser:
+    file: "../nxos/show_vlan_brief.yaml"
+    content: "{{ lookup('file', 'nxos/input/show_vlan_brief.txt') }}"
+
+- name: "print network_facts.nxos.vlans"
+  debug:
+    var: network_facts.nxos.vlans
+    verbosity: 1
+
+- name: "assert show_vlan_brief"
+  assert:
+    that:
+      - network_facts.nxos.vlan.vlans[0].id == 1
+      - network_facts.nxos.vlan.vlans[0].name == 'default'
+      - network_facts.nxos.vlan.vlans[0].status == 'active'
+      - network_facts.nxos.vlan.vlans[0].ports.0 == 'Ethernet1/3'
