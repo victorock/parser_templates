@@ -2,12 +2,12 @@
   vars:
     ansible_network_os: nxos
   command_parser:
-    file: "../nxos/show_vlan_brief.yaml"
-    content: "{{ lookup('file', 'nxos/input/show_vlan_brief.txt') }}"
+    file: "{{playbook_dir}}/../nxos/show_vlan_brief.yaml"
+    content: "{{ lookup('file', playbook_dir + '/nxos/input/show_vlan_brief.txt') }}"
 
-- name: "print network_facts.nxos.vlans"
+- name: "print network_facts.nxos.vlan"
   debug:
-    var: network_facts.nxos.vlans
+    var: network_facts.nxos.vlan
     verbosity: 1
 
 - name: "assert show_vlan_brief"

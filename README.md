@@ -1,12 +1,18 @@
+[![Build Status](https://travis-ci.org/victorock/parser_templates.svg?branch=master)](https://travis-ci.org/victorock/parser_templates)
+
+*****************
+Parser Templates
+*****************
+
 Repository of Ansible Network Engine parsers.
 Two type of parsers exists:
-- cli: Parse from show commands to device facts containing current state.
-- config: Parse from configuration to data easily consumable by Ansible modules and roles.
+- Config: Parse from show <configuration> to data easily consumable by Ansible modules and roles, under network_config.
+- Facts: Parse from show <command> containing current state to facts under network_facts.
 
 Examples
 =========
 
-config (`see in nxos/config/output/`): show_running-config_vlan.json
+config (`see in tests/nxos/output/`): show_running-config_vlan.json
 ```
 {
     "network_config.nxos_vlan": {
@@ -30,7 +36,7 @@ config (`see in nxos/config/output/`): show_running-config_vlan.json
 }
 ```
 
-cli (`see in nxos/cli/output/`): show_vlan_brief.yaml
+facts (`see in tests/nxos/output/`): show_vlan_brief.json
 ```
 {
   "ansible_facts": {
