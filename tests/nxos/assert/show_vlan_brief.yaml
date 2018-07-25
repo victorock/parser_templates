@@ -13,7 +13,7 @@
 - name: "assert show_vlan_brief"
   assert:
     that:
-      - network_facts.nxos.vlans[0].id == 1
-      - network_facts.nxos.vlans[0].name == 'default'
-      - network_facts.nxos.vlans[0].status == 'active'
-      - network_facts.nxos.vlans[0].ports.0 == 'Ethernet1/3'
+      - network_facts.nxos.vlan.vlans[0].id == 1
+      - network_facts.nxos.vlan.vlans[0].name == 'default'
+      - network_facts.nxos.vlan.vlans[0].status == 'active'
+      - network_facts.nxos.vlan.vlans[0].ports.0 == 'Ethernet1/3'

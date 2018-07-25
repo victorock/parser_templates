@@ -1,12 +1,12 @@
 {
     "network_facts.nxos.version": {
         "hardware": {
-            "board_id": "9NJBPJ0ZO2L",
+            "serial_number": "9NJBPJ0ZO2L",
             "bootflash_size": {
                 "unit": "kB",
                 "value": 3509454
             },
-            "chassis_id": "Nexus9000 9000v",
+            "chassis": "Nexus9000 9000v",
             "cpu": "Intel(R) Core(TM) i7-4870HQ CPU @ 2.50GHz",
             "memory_size": {
                 "unit": "kB",

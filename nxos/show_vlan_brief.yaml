@@ -26,7 +26,7 @@
 - name: template to platform vlan
   export: yes
   export_as: list
-  extend: network_facts.nxos
+  extend: network_facts.nxos.vlan
   loop: "{{ cli_values }}"
   register: vlans
   json_template:

@@ -13,8 +13,8 @@
 - name: "assert show_version"
   assert:
     that:
-      - network_facts.nxos.version.hardware.chassis_id == 'Nexus9000 9000v'
-      - network_facts.nxos.version.hardware.board_id == '9NJBPJ0ZO2L'
+      - network_facts.nxos.version.hardware.chassis == 'Nexus9000 9000v'
+      - network_facts.nxos.version.hardware.serial_number == '9NJBPJ0ZO2L'
       - network_facts.nxos.version.hardware.bootflash_size.value == 3509454
       - network_facts.nxos.version.hardware.bootflash_size.unit == 'kB'
       - network_facts.nxos.version.hardware.memory_size.value == 8165096

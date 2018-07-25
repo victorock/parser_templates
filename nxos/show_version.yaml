@@ -43,10 +43,10 @@
     regex: '\s+(.+)\s+with\s+(\d+)\s+(\w+)\s+of\s+memory.$'
   register: cpu_mem
 
-- name: "match chassis_id"
+- name: "match chassis"
   pattern_match:
     regex: 'cisco\s+(.+)\s+Chassis'
-  register: chassis_id
+  register: chassis
 
 - name: "match board_id"
   pattern_match:
@@ -91,11 +91,11 @@
 
       - key: hardware
         object:
-          - key: board_id
+          - key: serial_number
             value: "{{ board_id.matches.0 }}"
 
-          - key: chassis_id
-            value: "{{ chassis_id.matches.0 }}"
+          - key: chassis
+            value: "{{ chassis.matches.0 }}"
 
           - key: bootflash_size
             object:

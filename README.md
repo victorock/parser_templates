@@ -36,88 +36,90 @@ cli (`see in nxos/cli/output/`): show_vlan_brief.yaml
   "ansible_facts": {
     "network_facts": {
       "nxos": {
-        "vlans": [
-            {
-                "id": 1,
-                "name": "default",
-                "ports": [
-                    "Ethernet1/3",
-                    "Ethernet1/4",
-                    "Ethernet1/6",
-                    "Ethernet1/7",
-                    "Ethernet1/8",
-                    "Ethernet1/9",
-                    "Ethernet1/10",
-                    "Ethernet1/11",
-                    "Ethernet1/12",
-                    "Ethernet1/13",
-                    "Ethernet1/14",
-                    "Ethernet1/15",
-                    "Ethernet1/16",
-                    "Ethernet1/17",
-                    "Ethernet1/18",
-                    "Ethernet1/19",
-                    "Ethernet1/20",
-                    "Ethernet1/21",
-                    "Ethernet1/22",
-                    "Ethernet1/23",
-                    "Ethernet1/24",
-                    "Ethernet1/25",
-                    "Ethernet1/26",
-                    "Ethernet1/27",
-                    "Ethernet1/28",
-                    "Ethernet1/29",
-                    "Ethernet1/30",
-                    "Ethernet1/31",
-                    "Ethernet1/32",
-                    "Ethernet1/33",
-                    "Ethernet1/34",
-                    "Ethernet1/35",
-                    "Ethernet1/36",
-                    "Ethernet1/37",
-                    "Ethernet1/38",
-                    "Ethernet1/39",
-                    "Ethernet1/40",
-                    "Ethernet1/41",
-                    "Ethernet1/42",
-                    "Ethernet1/43",
-                    "Ethernet1/44",
-                    "Ethernet1/45",
-                    "Ethernet1/46",
-                    "Ethernet1/47",
-                    "Ethernet1/48",
-                    "Ethernet1/49",
-                    "Ethernet1/50",
-                    "Ethernet1/51",
-                    "Ethernet1/52",
-                    "Ethernet1/53",
-                    "Ethernet1/54",
-                    "Ethernet1/55",
-                    "Ethernet1/56",
-                    "Ethernet1/57",
-                    "Ethernet1/58",
-                    "Ethernet1/59",
-                    "Ethernet1/60",
-                    "Ethernet1/61",
-                    "Ethernet1/62",
-                    "Ethernet1/63",
-                    "Ethernet1/64"
-                ],
-                "status": "active"
-            },
-            {
-                "id": 2,
-                "name": "vlan2",
-                "ports": null,
-                "status": "active"
-            },
-            {
-                "id": 3,
-                "name": "vlan3",
-                "ports": null,
-                "status": "act/lshut"
-            }
-        ]
+        "vlan": {
+          "vlans": [
+              {
+                  "id": 1,
+                  "name": "default",
+                  "ports": [
+                      "Ethernet1/3",
+                      "Ethernet1/4",
+                      "Ethernet1/6",
+                      "Ethernet1/7",
+                      "Ethernet1/8",
+                      "Ethernet1/9",
+                      "Ethernet1/10",
+                      "Ethernet1/11",
+                      "Ethernet1/12",
+                      "Ethernet1/13",
+                      "Ethernet1/14",
+                      "Ethernet1/15",
+                      "Ethernet1/16",
+                      "Ethernet1/17",
+                      "Ethernet1/18",
+                      "Ethernet1/19",
+                      "Ethernet1/20",
+                      "Ethernet1/21",
+                      "Ethernet1/22",
+                      "Ethernet1/23",
+                      "Ethernet1/24",
+                      "Ethernet1/25",
+                      "Ethernet1/26",
+                      "Ethernet1/27",
+                      "Ethernet1/28",
+                      "Ethernet1/29",
+                      "Ethernet1/30",
+                      "Ethernet1/31",
+                      "Ethernet1/32",
+                      "Ethernet1/33",
+                      "Ethernet1/34",
+                      "Ethernet1/35",
+                      "Ethernet1/36",
+                      "Ethernet1/37",
+                      "Ethernet1/38",
+                      "Ethernet1/39",
+                      "Ethernet1/40",
+                      "Ethernet1/41",
+                      "Ethernet1/42",
+                      "Ethernet1/43",
+                      "Ethernet1/44",
+                      "Ethernet1/45",
+                      "Ethernet1/46",
+                      "Ethernet1/47",
+                      "Ethernet1/48",
+                      "Ethernet1/49",
+                      "Ethernet1/50",
+                      "Ethernet1/51",
+                      "Ethernet1/52",
+                      "Ethernet1/53",
+                      "Ethernet1/54",
+                      "Ethernet1/55",
+                      "Ethernet1/56",
+                      "Ethernet1/57",
+                      "Ethernet1/58",
+                      "Ethernet1/59",
+                      "Ethernet1/60",
+                      "Ethernet1/61",
+                      "Ethernet1/62",
+                      "Ethernet1/63",
+                      "Ethernet1/64"
+                  ],
+                  "status": "active"
+              },
+              {
+                  "id": 2,
+                  "name": "vlan2",
+                  "ports": null,
+                  "status": "active"
+              },
+              {
+                  "id": 3,
+                  "name": "vlan3",
+                  "ports": null,
+                  "status": "act/lshut"
+              }
+          ]
+        }
       }
     }
   }
@@ -139,7 +141,7 @@ tests/<platform>/ <= Tests for every Parser rules.
 │   ├── show_running-config_vlan.yaml
 │   └── show_vlan_brief.yaml
 ├── input <= Input data to parse
-│   ├── show_running-config.txt
+│   ├── show_running-config_vlan.txt
 │   └── show_vlan_brief.txt
 └── output <= Output containing the parsed data
     ├── show_running-config_vlan.json
@@ -156,21 +158,26 @@ For every parser:
 ```
   network_facts: "Contains state data (!running-config)."
     <platform>: "Corresponding platform, equivalent to ansible_network_os."
-      <command>: "First option after show command."
-        <subcommand>: "Second option after show command."
-          <subcommandN>: "Nth option after show command."
-            <attribute>: "Parsed attribute"
-              value: "Raw of the line containing the sub-attributes."
-              <attribute/value>: "Attribute name and corresponding value."
-                value: "Value of the attribute when it supports different units."
-                unit: "Unit of the attribute: 'kB', 'K', '%', 'G', 'gB'."
-              <attributeS>: "Attributes ending with S are list."
+      <command>:
+        <subcommandN>:
+          <attribute>: <value>
+          <attribute>: <value>
+          <attribute>: "Attributes with value/unit subkeys are useful when it is not clear if the value is K/kB/%/MB/G..."
+              <value>: <value>
+              <unit>: <value>
+          <attributeS>: "Attributes ending with S are lists with rows."
+            - <attribute>: <value>
+              <attributeN>: <value>
+            - <attribute>: <value>
+              <attributeN>: <value>
+            - <attribute>: <value>
+              <attributeN>: <value>
 
   - network_config: "Contains configuration data (running-config)."
-    <platform>: "Corresponding platform, equivalent to ansible_network_os."
-      <module>: "Ansible Module name."
-        aggregate: "Aggregation of entries containing variables supported by Ansible Module."
-          - <variable/value>: "Variable name supported by Ansible Module and corresponding value."
+      <platform>: "Corresponding platform, equivalent to ansible_network_os."
+        <module>: "Ansible Module name."
+          aggregate: "Aggregation of entries supported by Ansible Module."
+            - <module variable>: <value>
 ```
 
 License
