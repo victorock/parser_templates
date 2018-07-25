@@ -1,4 +1,4 @@
-|Travis Build|
+[![Build Status](https://travis-ci.org/victorock/parser_templates.svg?branch=master)](https://travis-ci.org/victorock/parser_templates)
 
 *****************
 Parser Templates
@@ -195,7 +195,3 @@ Author
 ------
 
 Victor da Costa (@victorock)
-
-
-.. |Travis Build| image: https://travis-ci.org/victorock/parser_templates.svg?branch=master
-   :target: https://travis-ci.org/victorock/parser_templates/
