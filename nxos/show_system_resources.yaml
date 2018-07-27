@@ -97,7 +97,7 @@
     content: "{{ cpu_values.matches.2 }}"
   register: cpu_values_idle
 
-- name: "template to network_facts.nxos.version"
+- name: "template to network_facts.nxos.system.resources"
   export: yes
   export_as: dict
   extend: network_facts.nxos.system

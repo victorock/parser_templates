@@ -27,7 +27,7 @@
     content: "{{ kernel_uptime_value.matches.0 }}"
   register: kernel_uptime_values
 
-- name: "template to network_facts.nxos.version"
+- name: "template to network_facts.nxos.system.uptime"
   export: yes
   export_as: dict
   extend: network_facts.nxos.system
