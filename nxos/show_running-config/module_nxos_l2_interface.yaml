@@ -1,9 +1,8 @@
-- name: parser meta data
-  parser_metadata:
-    version: 1.0
-    # Suggestion
-    module: nxos_l2_interface
-    network_os: nxos
+#- name: parser meta data
+#  parser_metadata:
+#    version: 1.X
+#    module: nxos_l2_interface
+#    network_os: nxos
 
 - name: "template interfaces to network_config.module.nxos_l2_interface as list"
   export: yes
@@ -20,6 +19,6 @@
       - key: native_vlan
         value: "{{ item.switchport.native_vlan }}"
       - key: trunk_allowed_vlans
-        value: "{{ item.switchport.trunk_allowed_vlan.split(',') }}"
+        value: "{{ item.switchport.trunk_allowed_vlans }}"
       - key: access_vlan
         value: "{{ item.switchport.access_vlan }}"

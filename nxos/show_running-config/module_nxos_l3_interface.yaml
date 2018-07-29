@@ -1,9 +1,8 @@
-- name: parser meta data
-  parser_metadata:
-    version: 1.0
-    # Suggestion
-    module: nxos_l3_interface
-    network_os: nxos
+#- name: parser meta data
+#  parser_metadata:
+#    version: 1.X
+#    module: nxos_l3_interface
+#    network_os: nxos
 
 - name: "template interfaces to network_config.module.nxos_l3_interface as list"
   export: yes

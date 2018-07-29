@@ -1,0 +1,16 @@
+- name: "parse show_running-config"
+  vars:
+    ansible_network_os: nxos
+  command_parser:
+    dir: "{{playbook_dir}}/../nxos/show_running-config/"
+    content: "{{ lookup('file', playbook_dir + '/nxos/input/show_running-config.txt') }}"
+
+- name: "print network_config"
+  debug:
+    var: network_config
+    verbosity: 1
+
+- name: "assert show_running-config"
+  assert:
+    that:
+      - network_config.nxos.hostname == 'nxosv'
