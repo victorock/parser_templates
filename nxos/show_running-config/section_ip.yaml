@@ -1,0 +1,43 @@
+---
+- name: parser meta data
+  parser_metadata:
+    version: 1.0
+    command: show running-config section ^ip
+    network_os: nxos
+
+- name: match ip domain-name <str>
+  pattern_match:
+    regex: 'ip domain-name (.+)'
+  register: ip_domain_name
+  export: yes
+
+- name: match ip domain lookup
+  pattern_match:
+    regex: '(ip domain lookup)'
+  register: ip_domain_lookup
+  export: yes
+
+- name: match name servers
+  pattern_match:
+    regex: 'ip name-server (.+) use-vrf (.+)'
+    match_all: yes
+  register: ip_name_servers
+  export: yes
+
+- name: template entries ip
+  json_template:
+    template:
+      - key: domain_name
+        value: "{{ ip_domain_name.matches.0 }}"
+      - key: domain_lookup
+        value: "{{ ip_domain_lookup.matches != None }}"
+      - key: name_servers
+        elements:
+          - key: servers
+            value: "{{ item.matches.0.split(' ') }}"
+          - key: vrf
+            value: "{{ item.matches.1 }}"
+        repeat_for: "{{ ip_name_servers }}"
+  register: ip
+  extend: network_config.nxos
+  export: yes

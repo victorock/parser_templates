@@ -1,0 +1,22 @@
+- name: parser meta data
+  parser_metadata:
+    version: 1.0
+    # Suggestion
+    module: nxos_system
+    network_os: nxos
+
+- name: "template to network_config.module.nxos_system"
+  export: yes
+  export_as: list
+  extend: network_config.module
+  register: nxos_system
+  json_template:
+    template:
+      - key: hostname
+        value: "{{ network_config.nxos.hostname.name }}"
+      - key: domain_name
+        value: "{{ network_config.nxos.ip.domain_name }}"
+      - key: domain_lookup
+        value: "{{ network_config.nxos.ip.domain_lookup }}"
+      - key: name_servers
+        value: "{{ network_config.nxos.ip.name_servers }}"

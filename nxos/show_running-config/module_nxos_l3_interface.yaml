@@ -1,0 +1,19 @@
+- name: parser meta data
+  parser_metadata:
+    version: 1.0
+    # Suggestion
+    module: nxos_l3_interface
+    network_os: nxos
+
+- name: "template interfaces to network_config.module.nxos_l3_interface as list"
+  export: yes
+  export_as: list
+  extend: network_config.module
+  loop: "{{ network_config.nxos.interfaces }}"
+  register: nxos_l3_interface
+  json_template:
+    template:
+      - key: name
+        value: "{{ item.name }}"
+      - key: ipv4
+        value: "{{ item.ipv4.address }}/{{ item.ipv4.netmask }}"

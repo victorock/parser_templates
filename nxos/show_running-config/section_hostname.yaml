@@ -1,0 +1,18 @@
+---
+- name: parser meta data
+  parser_metadata:
+    version: 1.0
+    command: show running-config section ^hostname
+    network_os: nxos
+
+- name: match sections
+  pattern_match:
+    regex: '^hostname\s+(.+)'
+  register: hostname_name
+
+- name: template entries as dict
+  set_vars:
+    hostname: "{{ hostname_name.matches.0 }}"
+  register: nxos
+  extend: network_config
+  export: yes

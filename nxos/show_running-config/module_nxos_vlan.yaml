@@ -1,0 +1,27 @@
+- name: parser meta data
+  parser_metadata:
+    version: 1.0
+    # Suggestion
+    module: nxos_vlan
+    network_os: nxos
+
+- name: "template to network_config.module.nxos_vlan"
+  export: yes
+  export_as: list
+  extend: network_config.module
+  loop: "{{ network_config.nxos.vlans }}"
+  register: nxos_vlan
+  json_template:
+    template:
+      - key: vlan_id
+        value: "{{ item.id.matches.0 }}"
+      - key: mode
+        value: "{{ item.mode.matches.0 }}"
+      - key: vlan_state
+        value: "{{ item.state.matches.0 }}"
+      - key: vlan_name
+        value: "{{ item.name.matches.0 }}"
+      - key: mapped_vni
+        value: "{{ item.vn_segment.matches.0 }}"
+      - key: enabled
+        value: "{{ not item.enabled.matches }}"

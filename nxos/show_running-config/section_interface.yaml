@@ -1,0 +1,142 @@
+---
+- name: parser meta data
+  parser_metadata:
+    version: 1.0
+    command: show running-config section ^interface
+    network_os: nxos
+
+- name: match interface sections
+  pattern_match:
+    regex: "^interface .+"
+    match_all: yes
+    match_greedy: yes
+  register: context
+
+- name: match interface values
+  pattern_group:
+    - name: match name
+      pattern_match:
+        regex: "^interface (\\S+)"
+        content: "{{ item }}"
+      register: name
+
+    - name: match description
+      pattern_match:
+        regex: 'description (.+)'
+        content: "{{ item }}"
+      register: description
+
+    - name: match admin state
+      pattern_match:
+        regex: "(shutdown)"
+        content: "{{ item }}"
+      register: enabled
+
+    - name: match ip address
+      pattern_match:
+        regex: 'ip address (\S+)/(\d+)'
+        content: "{{ item }}"
+      register: ipaddr
+
+    - name: match ip address dhcp
+      pattern_match:
+        regex: 'ip address (dhcp)'
+        content: "{{ item }}"
+      register: dhcp
+
+    - name: match switchport mode
+      pattern_match:
+        regex: 'switchport mode (\w+)'
+        content: "{{ item }}"
+      register: mode
+
+    - name: match switchport access vlan
+      pattern_match:
+        regex: 'switchport access vlan (\d+)'
+        content: "{{ item }}"
+      register: access_vlan
+
+    - name: match switchport trunk allowed vlan
+      pattern_match:
+        regex: 'switchport trunk allowed vlan ([\d,\,{1},\-{1}]+)'
+        content: "{{ item }}"
+      register: trunk_allowed_vlan
+
+    - name: match switchport trunk allowed vlan add
+      pattern_match:
+        regex: 'switchport trunk allowed vlan add ([\d,\,{1},\-{1}]+)'
+        content: "{{ item }}"
+      register: trunk_allowed_vlan_add
+
+  loop: "{{ context }}"
+  register: matches
+
+- name: template entries as list
+  json_template:
+    template:
+      - key: name
+        value: "{{ item.name.matches.0 }}"
+      - key: description
+        value: "{{ item.description.matches.0 }}"
+      - key: enabled
+        value: "{{ not item.enabled.matches }}"
+      - key: switchport
+        object:
+          - key: mode
+            value: "{{ item.mode.matches.0 }}"
+          - key: native_vlan
+            value: "{{ item.native_vlan.matches.0 }}"
+          - key: access_vlan
+            value: "{{ item.access_vlan.matches.0 }}"
+          - key: trunk_allowed_vlans
+            value: "{{ item.trunk_allowed_vlan.matches.0.split(',') }}"
+          - key: trunk_allowed_vlans_add
+            value: "{{ item.trunk_allowed_vlans_add.matches.0.split(',') }}"
+      - key: ipv4
+        object:
+          - key: address
+            value: "{{ item.ipaddr.matches.0 }}"
+          - key: netmask
+            value: "{{ item.ipaddr.matches.1 }}"
+          - key: dhcp
+            value: "{{ item.dhcp.matches != None }}"
+  loop: "{{ matches }}"
+  register: interfaces
+  extend: network_config.nxos
+  export: yes
+  export_as: list
+
+- name: template entries as dict
+  json_template:
+    template:
+      - key: "{{ item.name.matches.0 }}"
+        object:
+          - key: name
+            value: "{{ item.name.matches.0 }}"
+          - key: description
+            value: "{{ item.description.matches.0 }}"
+          - key: enabled
+            value: "{{ not item.enabled.matches }}"
+          - key: switchport
+            object:
+              - key: mode
+                value: "{{ item.mode.matches.0 }}"
+              - key: native_vlan
+                value: "{{ item.native_vlan.matches.0 }}"
+              - key: access_vlan
+                value: "{{ item.access_vlan.matches.0 }}"
+              - key: trunk_allowed_vlans
+                value: "{{ item.trunk_allowed_vlan.matches.0.split(',') }}"
+          - key: ipv4
+            object:
+              - key: address
+                value: "{{ item.ipaddr.matches.0 }}"
+              - key: netmask
+                value: "{{ item.ipaddr.matches.1 }}"
+              - key: dhcp
+                value: "{{ item.dhcp.matches != None }}"
+  loop: "{{ matches }}"
+  register: interface
+  extend: network_config.nxos
+  export: yes
+  export_as: dict
