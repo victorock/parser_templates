@@ -59,7 +59,7 @@
       - key: mode
         value: "{{ item.mode.matches.0 }}"
       - key: vlan_state
-        valye: "{{ item.state.matches.0 }}"
+        value: "{{ item.state.matches.0 }}"
       - key: vlan_name
         value: "{{ item.name.matches.0 }}"
       - key: mapped_vni
